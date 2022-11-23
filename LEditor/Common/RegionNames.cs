@@ -10,7 +10,8 @@ namespace LEditor.Common
     {
         public const string LeftPlayerExplorer = "LeftUserExplorer";
         public const string RightPlayerExplorer = "RightUserExplorer";
-        public const string RemoteControl = "RemoteControl";
-        public const string WaitUserExplorer = "WaitUserExplorer";
+        
+        public const string WaitPlayerExplorer = "WaitPlayerExplorer";
+        public const string SelectPlayerRegion = "SelectPlayerRegion";
     }
 }

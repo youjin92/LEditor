@@ -19,7 +19,9 @@ namespace WpfApp1
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<PlayerView>();
-
+            containerRegistry.RegisterForNavigation<PlayerMirrorView>();
+            containerRegistry.RegisterForNavigation<PlayerSelectView>();
+            containerRegistry.RegisterForNavigation<PlayerWaitView>();
         }
 
         protected override void OnInitialized()
@@ -29,7 +31,9 @@ namespace WpfApp1
             var RegionManager = Container.Resolve<IRegionManager>();
 
             RegionManager.RequestNavigate(RegionNames.LeftPlayerExplorer, "PlayerView");
-            RegionManager.RequestNavigate(RegionNames.RightPlayerExplorer, "PlayerView");
+            RegionManager.RequestNavigate(RegionNames.RightPlayerExplorer, "PlayerMirrorView");
+            RegionManager.RequestNavigate(RegionNames.SelectPlayerRegion, "PlayerSelectView");
+            RegionManager.RequestNavigate(RegionNames.WaitPlayerExplorer, "PlayerWaitView");
 
         }
     }

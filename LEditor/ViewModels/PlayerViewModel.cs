@@ -9,6 +9,6 @@ namespace LEditor.ViewModels
 {
     public class PlayerViewModel : BindableBase
     {
-        public string Test { get; set; } = "Test";
+        public string Test { get; set; } = "PlayerViewModel";
     }
 }
