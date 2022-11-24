@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LEditor.Events
 {
 
-    public class SelectPlayerEvent : PubSubEvent<EventParam>
+    public class GoToWaitViewEvent : PubSubEvent<EventParam>
     {
 
     }

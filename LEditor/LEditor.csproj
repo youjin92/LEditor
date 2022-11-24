@@ -113,11 +113,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Events\SelectPlayerEvent.cs" />
+    <Compile Include="Behaviors\ButtonClickBehavior.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="Events\GoToRightViewEvent.cs" />
+    <Compile Include="Events\GoToLeftViewEvent.cs" />
+    <Compile Include="Events\GoToSelectViewEvent.cs" />
+    <Compile Include="Events\GoToWaitViewEvent.cs" />
     <Compile Include="Usercontrols\WaitPlayer.xaml.cs">
       <DependentUpon>WaitPlayer.xaml</DependentUpon>
-      <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Utils\BaseViewModel.cs" />
+    <Compile Include="Utils\CustomRoutedCommand.cs" />
+    <Compile Include="Utils\DataGridHelper.cs" />
+    <Compile Include="Utils\HitTestResultExtension.cs" />
     <Compile Include="ViewModels\PlayerMirrorViewModel.cs" />
     <Compile Include="ViewModels\PlayerSelectViewModel.cs" />
     <Compile Include="ViewModels\PlayerWaitViewModel.cs" />
@@ -157,7 +165,7 @@
     <Compile Include="Common\Draggables\Draggable.cs" />
     <Compile Include="Common\Draggables\DraggableAdorner.cs" />
     <Compile Include="Common\Enums.cs" />
-    <Compile Include="Common\RegionNames.cs" />
+    <Compile Include="Common\FixedNames.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Usercontrols\PlayerControl.xaml.cs">
       <DependentUpon>PlayerControl.xaml</DependentUpon>

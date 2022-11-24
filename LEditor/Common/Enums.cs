@@ -16,6 +16,20 @@ namespace LEditor.Common
         Diamond,
     }
 
+    public enum PlayerState
+    {
+        None,
+        Wait,
+        LeftTeam,
+        RightTeam,
+    }
+
+    public enum PlayerControlDirection
+    {
+        Left,
+        Right,
+    }
+
     [Flags]
     public enum Position
     {

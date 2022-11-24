@@ -14,4 +14,11 @@ namespace LEditor.Common
         public const string WaitPlayerExplorer = "WaitPlayerExplorer";
         public const string SelectPlayerRegion = "SelectPlayerRegion";
     }
+
+    public static class ButtonDirection
+    {
+        public const string LeftButton = "LeftButton";
+        public const string RightButton = "RightButton";
+        public const string DownButton = "DownButton";
+    }
 }

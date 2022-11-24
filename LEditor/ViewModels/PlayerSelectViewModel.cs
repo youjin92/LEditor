@@ -20,16 +20,21 @@ namespace LEditor.ViewModels
         private readonly IEventAggregator _eventAggregator;
 
         public static ObservableCollection<Player> ItemList { get; set; } = new ObservableCollection<Player>();
-        public Player SelectedItem { get; set; }
 
         public PlayerSelectViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
 
-
-            ItemList.Add(new Player { Name = "유진", Rank = Rank.Bronze, Position = Position.Support });
-            ItemList.Add(new Player { Name = "잦성", Rank = Rank.Silver, Position = Position.Jungle });
-            ItemList.Add(new Player { Name = "시묘", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘1", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘2", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘3", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘4", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘5", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘6", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘7", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘8", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘9", Rank = Rank.Gold, Position = Position.Top });
+            ItemList.Add(new Player { Name = "시묘10", Rank = Rank.Gold, Position = Position.Top });
         }
 
         #region Command
@@ -44,8 +49,11 @@ namespace LEditor.ViewModels
                     {
                         if (textBlock.DataContext is Player player)
                         {
-                            player.IsSelected = true;
-                            _eventAggregator.GetEvent<SelectPlayerEvent>().Publish(new EventParam(_Item: player));
+                            if (player.State != PlayerState.None)
+                                return;
+
+                            player.State = PlayerState.Wait;
+                            _eventAggregator.GetEvent<GoToWaitViewEvent>().Publish(new EventParam(_Item: player));
                         }
                     }
                 });

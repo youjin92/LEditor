@@ -5,34 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:LEditor.Usercontrols"
+             xmlns:commons="clr-namespace:LEditor.Common"
+             xmlns:Behaviors="clr-namespace:LEditor.Behaviors"
+             xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
+
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="60"/>
-        </Grid.ColumnDefinitions>
-        <Button Grid.RowSpan="2" Grid.Column="0">
-            <materialDesign:PackIcon Kind="ChevronLeft"/>
-        </Button>
-        <Button Grid.RowSpan="2" Grid.Column="2">
-            <materialDesign:PackIcon Kind="ChevronRight"/>
-        </Button>
-        <Button Grid.Column="1" Grid.Row="1">
-            <materialDesign:PackIcon Kind="ChevronDown"/>
-        </Button>
-        <Grid Grid.Row="0" Grid.Column="1" >
-            <StackPanel Orientation="Vertical" Width="160" Margin="5">
-                <TextBlock x:Name="NameTB"/>
-                <TextBlock x:Name="RankTB"/>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <!--LeftButton-->
+                <Button x:Name="LeftButton" Command="Behaviors:ButtonClickBehavior.CustomCommand">
+                    <materialDesign:PackIcon Kind="ChevronLeft"/>
+                </Button>
+
+                <StackPanel Orientation="Vertical" Width="150" Margin="5">
+                    <TextBlock x:Name="NameTB" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="RankTB" HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!--RightButton-->
+                <Button x:Name="RightButton" Command="Behaviors:ButtonClickBehavior.CustomCommand">
+                    <materialDesign:PackIcon Kind="ChevronRight"/>
+                </Button>
             </StackPanel>
-        </Grid>
+
+            <!--DownButton-->
+            <Button x:Name="DownButton" Command="Behaviors:ButtonClickBehavior.CustomCommand">
+                <materialDesign:PackIcon Kind="ChevronDown"/>
+            </Button>
+        </StackPanel>
     </Grid>
 
 </UserControl>

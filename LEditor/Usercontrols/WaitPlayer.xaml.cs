@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LEditor.Common;
 
 namespace LEditor.Usercontrols
 {
@@ -25,6 +26,7 @@ namespace LEditor.Usercontrols
         {
             InitializeComponent();
         }
+
 
         public Player Player
         {
@@ -44,6 +46,38 @@ namespace LEditor.Usercontrols
 
             obj.NameTB.Text = NewPlayer.Name.ToString();
             obj.RankTB.Text = NewPlayer.Rank.ToString();
+        }
+
+        public void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button.DataContext is Player player)
+            {
+                switch (button.Name)
+                {
+                    case ButtonDirection.LeftButton:
+                        {
+                            player.State = PlayerState.LeftTeam;
+                            break;
+                        }
+                    case ButtonDirection.RightButton:
+                        {
+                            player.State = PlayerState.RightTeam;
+                            break;
+                        }
+                    case ButtonDirection.DownButton:
+                        {
+                            player.State = PlayerState.None;
+                      
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
+
+
         }
     }
 }

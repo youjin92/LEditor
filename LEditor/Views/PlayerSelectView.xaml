@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"            
-
-
-             xmlns:local="clr-namespace:LEditor.Views"
+             xmlns:commons="clr-namespace:LEditor.Common;assembly=LEditor"
+             xmlns:local="clr-namespace:LEditor"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AliceBlue" >
@@ -20,11 +19,17 @@
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                            <Setter Property="Background" Value="Brown"/>
+                        <DataTrigger Binding="{Binding State}" Value="{x:Static commons:PlayerState.Wait}">
+                            <Setter Property="Background" Value="Green"/>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                        <DataTrigger Binding="{Binding State}" Value="{x:Static commons:PlayerState.None}">
                             <Setter Property="Background" Value="Gray"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="{x:Static commons:PlayerState.LeftTeam}">
+                            <Setter Property="Background" Value="{x:Static local:Config.LeftTeamColor}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="{x:Static commons:PlayerState.RightTeam}">
+                            <Setter Property="Background" Value="{x:Static local:Config.RightTeamColor}"/>
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
@@ -37,7 +42,7 @@
             </i:Interaction.Triggers>
             
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Selected" Binding="{Binding IsSelected}" IsReadOnly="True" Width="70" />
+                <DataGridTextColumn Header="Selected" Binding="{Binding State}" IsReadOnly="True" Width="70" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="1*" />
                 <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" IsReadOnly="True" Width="1*"/>
                 <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True" Width="1*"/>

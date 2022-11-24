@@ -1,4 +1,6 @@
-﻿using LEditor.Common.Draggables;
+﻿using LEditor.Common;
+using LEditor.Common.Draggables;
+using LEditor.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,30 +21,38 @@ namespace LEditor.Usercontrols
     /// <summary>
     /// PlayerControl.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class PlayerControl : Draggable
+    public partial class PlayerControl : UserControl
     {
         public PlayerControl()
         {
             InitializeComponent();
         }
 
-        public string NameDisplay { get; set; }
-
-        public string Name
+        public Player Player
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get { return (Player)GetValue(PlayerProperty); }
+            set { SetValue(PlayerProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty NameProperty =
-            DependencyProperty.Register("Name", typeof(string), typeof(PlayerControl), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnPropertyChanged)));
+        public static readonly DependencyProperty PlayerProperty =
+            DependencyProperty.Register("Player", typeof(Player), typeof(PlayerControl), new FrameworkPropertyMetadata(null, OnPropertyChanged));
 
         public static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             PlayerControl obj = d as PlayerControl;
 
-            obj.NameDisplay = e.NewValue.ToString();
+            Player NewPlayer = e.NewValue as Player;
+
+            obj.NameTB.Text = NewPlayer.Name.ToString();
+            obj.RankTB.Text = NewPlayer.Rank.ToString();
+
+            if (NewPlayer.State == PlayerState.LeftTeam)
+                obj.LeftButton.Visibility = Visibility.Collapsed;
+
+            if (NewPlayer.State == PlayerState.RightTeam)
+                obj.RightButton.Visibility = Visibility.Collapsed;
+
         }
 
     }
