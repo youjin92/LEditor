@@ -16,7 +16,7 @@ namespace LEditor.Utils
             if (e.Source is DataGrid dataGrid)
             {
                 HitTestResult hitTestResult = VisualTreeHelper.HitTest(dataGrid, e.GetPosition(dataGrid));
-                DataGridCell dataGridCell = hitTestResult.VisualHit.GetParentOfType<DataGridCell>();
+                DataGridCell dataGridCell = hitTestResult?.VisualHit.GetParentOfType<DataGridCell>();
 
                 if (dataGridCell != null)
                 {

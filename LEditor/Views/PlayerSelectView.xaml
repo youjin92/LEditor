@@ -42,7 +42,7 @@
             </i:Interaction.Triggers>
             
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Selected" Binding="{Binding State}" IsReadOnly="True" Width="70" />
+                <DataGridTextColumn Header="State" Binding="{Binding State}" IsReadOnly="True" Width="100" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="1*" />
                 <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" IsReadOnly="True" Width="1*"/>
                 <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True" Width="1*"/>

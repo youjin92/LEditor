@@ -20,8 +20,8 @@
                 </Button>
 
                 <StackPanel Orientation="Vertical" Width="160" Margin="5">
-                    <TextBlock x:Name="NameTB"/>
-                    <TextBlock x:Name="RankTB"/>
+                    <TextBlock x:Name="NameTB" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="RankTB" HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <!--RightButton-->
