@@ -114,6 +114,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\ButtonClickBehavior.cs" />
+    <Compile Include="Common\Dropables\Dropable.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Events\GoToRightViewEvent.cs" />
     <Compile Include="Events\GoToLeftViewEvent.cs" />

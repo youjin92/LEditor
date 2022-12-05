@@ -3,16 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:prism="http://prismlibrary.com/"            
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:local="clr-namespace:InIManager"
         xmlns:markups="clr-namespace:InIManager.MarkupExtensions"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.7*"/>
         </Grid.ColumnDefinitions>
         
         <StackPanel Orientation="Vertical">
@@ -27,26 +28,26 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Name         :   "/>
-                    <TextBox Text="{Binding ModifiedPlayer.Name}" MinWidth="200"/>
+                    <TextBox Text="{Binding ModifiedPlayer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Rank           :  "/>
                     <ComboBox ItemsSource="{Binding Source={markups:EnumBindingSource {x:Type local:Rank}}}"  
-                              SelectedItem="{Binding ModifiedPlayer.Rank}" 
+                              SelectedItem="{Binding ModifiedPlayer.Rank, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                               SelectedIndex="0"
                               MinWidth="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Position       :  "/>
                     <ComboBox ItemsSource="{Binding Source={markups:EnumBindingSource {x:Type local:Position}}}"  
-                              SelectedItem="{Binding ModifiedPlayer.Rank}" 
+                              SelectedItem="{Binding ModifiedPlayer.Position, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                               SelectedIndex="0"
                               MinWidth="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="State           :  "/>
                     <ComboBox ItemsSource="{Binding Source={markups:EnumBindingSource {x:Type local:PlayerState}}}"  
-                              SelectedItem="{Binding ModifiedPlayer.Rank}" 
+                              SelectedItem="{Binding ModifiedPlayer.State, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                               SelectedIndex="0"
                               MinWidth="200"/>
                 </StackPanel>
@@ -64,12 +65,18 @@
                   CanUserResizeRows="False"
                   CanUserAddRows="False"
                   AutoGenerateColumns="False">
-            
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MouseDoubleClickCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="*"/>
-                <DataGridTextColumn Header="Position" Binding="{Binding Position}" Width="*"/>
-                <DataGridTextColumn Header="State" Binding="{Binding State}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="State" Binding="{Binding State}" IsReadOnly="True" Width="*"/>
             </DataGrid.Columns>
             
         </DataGrid>

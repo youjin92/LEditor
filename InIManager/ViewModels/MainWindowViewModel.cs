@@ -1,26 +1,68 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace InIManager.ViewModels
 {
     class MainWindowViewModel : BindableBase
     {
+        #region 프로퍼티
         public string Title { get; set; } = "InIManager";
         public string LoadAddress { get; set; } = @"C:\Player.ini";
         public ObservableCollection<Player> ItemList { get; set; } = new ObservableCollection<Player>();
-        public Player ModifiedPlayer { get; set; }
+        public Player ModifiedPlayer { get; set; } = new Player();
+        #endregion
 
-
+        #region 필드
         IniFile MainInI = new IniFile();
+        #endregion
 
         public MainWindowViewModel()
         {
-            MainInI.Save(LoadAddress);
+            ReloadItemList();
         }
+
+        #region 함수
+
+        private void ReloadItemList()
+        {
+            MainInI.Load(LoadAddress);
+
+            if (MainInI.Keys.Count > 0)
+            {
+                ItemList.Clear();
+                foreach (var section in MainInI.Keys)
+                {
+                    ItemList.Add(ToPlayerFromMainInI(section.ToString()));
+                }
+            }
+        }
+
+        private Player ToPlayerFromMainInI(string Section)
+        {
+            Player player   = new Player();
+            player.Name     = MainInI[Section]["Name"].ToString();
+            player.Rank     = EnumUtil<Rank>.Parse(MainInI[Section]["Rank"].ToString());
+            player.Position = EnumUtil<Position>.Parse(MainInI[Section]["Position"].ToString());
+            player.State    = EnumUtil<PlayerState>.Parse(MainInI[Section]["State"].ToString());
+
+            return player;
+        }
+
+        private void MakeBlankPlayer()
+        {
+            ModifiedPlayer.Name = "";
+            ModifiedPlayer.Rank = Rank.Iron;
+            ModifiedPlayer.Position = Position.Top;
+            ModifiedPlayer.State = PlayerState.None;
+        }
+
+        #endregion
 
         #region Command
         public ICommand ClickCommand
@@ -33,60 +75,68 @@ namespace InIManager.ViewModels
                     {
                         case "불러오기":
                             {
-                                MainInI.Load(LoadAddress);
+                                ReloadItemList();
 
-                                if (MainInI.Keys.Count > 0)
-                                {
-                                    ItemList.Clear();
-                                    foreach (var section in MainInI.Keys)
-                                    {
-                                        Player play = new Player();
-                                        play.Name = MainInI[section]["Name"].ToString();
-                                        play.Rank = (Rank)MainInI[section]["Rank"].ToInt();
-                                        play.Position = (Position)MainInI[section]["Position"].ToInt();
-                                        play.State = (PlayerState)MainInI[section]["State"].ToInt();
-
-                                        ItemList.Add(play);
-                                    }
-                                }
-
-
-                                //IniFile ini = new IniFile();
-                                //ini["Test1"]["Name"] = "해리포터";
-                                //ini["Test1"]["Rank"] = "블리자드";
-
-                                //ini["Test2"]["Name"] = "파랑새";
-                                //ini["Test2"]["Rank"] = "붉은노을";
-
-                                //ini["Test3"]["Name"] = "노랑새";
-                                //ini["Test3"]["Rank"] = "새우잡이";
-
-                                ////IniFile ini2 = new IniFile();
-                                ////ini2["Test4"]["Name"] = "슈퍼";
-                                ////ini2["Test4"]["Rank"] = "마켓";
-
-                                ////ini.Clear();
-                                //var boolt = ini.ContainsSection("Test3");
-                                //var boolt2 = ini.ContainsSection("Test4");
-
-                                //var a = ini.Keys;
-
-
-                                //ini.Save(@"C:\Player.ini");
                                 break;
                             }
 
                         case "저장":
                             {
-                                MainInI[ModifiedPlayer.Name]["Name"] = ModifiedPlayer.Name;
-                                MainInI[ModifiedPlayer.Name]["Name"] = ModifiedPlayer.Name;
-                                MainInI[ModifiedPlayer.Name]["Name"] = ModifiedPlayer.Name;
-                                MainInI[ModifiedPlayer.Name]["Name"] = ModifiedPlayer.Name;
+                                if (string.IsNullOrEmpty(ModifiedPlayer.Name))
+                                    return;
+
+                                MainInI[ModifiedPlayer.Name]["Name"] = ModifiedPlayer.Name.ToString();
+                                MainInI[ModifiedPlayer.Name]["Rank"] = ModifiedPlayer.Rank.ToString();
+                                MainInI[ModifiedPlayer.Name]["Position"] = ModifiedPlayer.Position.ToString();
+                                MainInI[ModifiedPlayer.Name]["State"] = ModifiedPlayer.State.ToString();
+
+                                MainInI.Save(LoadAddress);
+
+                                ReloadItemList();
+                                break;
+                            }
+
+                        case "초기화":
+                            {
+                                MakeBlankPlayer();
+                                break;
+                            }
+
+                        case "삭제(Name입력 필수)":
+                            {
+                                if (MainInI.Keys.Contains(ModifiedPlayer.Name))
+                                {
+                                    MainInI.Remove(ModifiedPlayer.Name);
+                                    MainInI.Save(LoadAddress);
+                                    ReloadItemList();
+
+                                    MakeBlankPlayer();
+                                }
                                 break;
                             }
 
                         default:
                             break;
+                    }
+                });
+            }
+        }
+
+        public ICommand MouseDoubleClickCommand
+        {
+            get
+            {
+                return new DelegateCommand<MouseButtonEventArgs>((e) =>
+                {
+                    if (e.OriginalSource is TextBlock textBlock)
+                    {
+                        if (textBlock.DataContext is Player player)
+                        {
+                            ModifiedPlayer.Name = player.Name;
+                            ModifiedPlayer.Rank = player.Rank;
+                            ModifiedPlayer.Position = player.Position;
+                            ModifiedPlayer.State = player.State;
+                        }
                     }
                 });
             }

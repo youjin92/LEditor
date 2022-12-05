@@ -9,11 +9,57 @@ namespace InIManager
 {
     public class Player : BindableBase
     {
-        public string Name { get; set; } = "Name";
-        public Rank Rank { get; set; }
-        public Position Position { get; set; }
-        public PlayerState State { get; set; }
+        private string Name_ = "Default Name";
+        public string Name {
+            get=> Name_;
+            set
+            {
+                Name_ = value;
+                RaisePropertyChanged();
+            }
+        } 
 
+        private Rank Rank_ = Rank.Pletinum;
+        public Rank Rank { 
+            get=> Rank_;
+            set
+            {
+                Rank_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Position Position_ = Position.AD;
+        public Position Position
+        {
+            get => Position_;
+            set
+            {
+                Position_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private PlayerState State_ = PlayerState.None;
+
+        public PlayerState State
+        {
+            get => State_;
+            set
+            {
+                State_ = value;
+                RaisePropertyChanged();
+            }
+        }
+
+    }
+
+    public static class EnumUtil<T>
+    {
+        public static T Parse(string s)
+        {
+            return (T)Enum.Parse(typeof(T), s);
+        }
     }
 
     public enum Rank
