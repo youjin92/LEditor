@@ -21,11 +21,15 @@ namespace LEditor.Usercontrols
     /// <summary>
     /// PlayerControl.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class PlayerControl : UserControl
+    public partial class PlayerControl : Draggable
     {
         public PlayerControl()
         {
             InitializeComponent();
+            DragTagName = "Player";
+            DragPropertyobject = Player;
+
+            blankBorder.Visibility = Visibility.Visible;
         }
 
         public Player Player
@@ -36,7 +40,7 @@ namespace LEditor.Usercontrols
 
         // Using a DependencyProperty as the backing store for Name.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PlayerProperty =
-            DependencyProperty.Register("Player", typeof(Player), typeof(PlayerControl), new FrameworkPropertyMetadata(null, OnPropertyChanged));
+            DependencyProperty.Register("Player", typeof(Player), typeof(PlayerControl), new FrameworkPropertyMetadata(new Player { Name = ""}, OnPropertyChanged));
 
         public static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -46,13 +50,19 @@ namespace LEditor.Usercontrols
 
             obj.NameTB.Text = NewPlayer.Name.ToString();
             obj.RankTB.Text = NewPlayer.Rank.ToString();
+            obj.DragPropertyobject = NewPlayer;
 
-            if (NewPlayer.State == PlayerState.LeftTeam)
-                obj.LeftButton.Visibility = Visibility.Collapsed;
-
-            if (NewPlayer.State == PlayerState.RightTeam)
-                obj.RightButton.Visibility = Visibility.Collapsed;
-
+            if (string.IsNullOrEmpty(obj.NameTB.Text))
+            {
+                obj.blankBorder.Visibility = Visibility.Visible;
+                obj.IsDragable = false;
+            }
+            else
+            {
+                obj.blankBorder.Visibility = Visibility.Collapsed;
+                obj.IsDragable = true;
+            }
+                
         }
 
     }

@@ -13,13 +13,5 @@ namespace LEditor.Events
 
     }
 
-    public class EventParam
-    {
-        public EventParam(object _Item)
-        {
-            Item = _Item;
-        }
 
-        public object Item { get; set; }
-    }
 }

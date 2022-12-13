@@ -64,6 +64,7 @@
                   VerticalScrollBarVisibility="Auto" 
                   CanUserResizeRows="False"
                   CanUserAddRows="False"
+                  SelectedItem="{Binding ModifiedPlayer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                   AutoGenerateColumns="False">
 
             <i:Interaction.Triggers>

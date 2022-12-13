@@ -12,9 +12,11 @@ using System.Threading.Tasks;
 
 namespace LEditor.ViewModels
 {
-    class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : BindableBase
     {
         public string Title { get; set; } = "LEditor";
+
+
 
     }
 }

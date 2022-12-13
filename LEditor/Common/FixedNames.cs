@@ -8,11 +8,9 @@ namespace LEditor.Common
 {
     public static class RegionNames
     {
-        public const string LeftPlayerExplorer = "LeftUserExplorer";
-        public const string RightPlayerExplorer = "RightUserExplorer";
-        
-        public const string WaitPlayerExplorer = "WaitPlayerExplorer";
-        public const string SelectPlayerRegion = "SelectPlayerRegion";
+        public const string TeamSettingRegion = "TeamSettingRegion";
+        public const string SelectedPlayerRegion = "WaitPlayerExplorer";
+        public const string WaitPlayerRegion = "SelectPlayerRegion";
     }
 
     public static class ButtonDirection

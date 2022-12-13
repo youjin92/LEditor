@@ -18,10 +18,9 @@ namespace WpfApp1
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<PlayerView>();
-            containerRegistry.RegisterForNavigation<PlayerMirrorView>();
-            containerRegistry.RegisterForNavigation<PlayerSelectView>();
-            containerRegistry.RegisterForNavigation<PlayerWaitView>();
+            containerRegistry.RegisterForNavigation<TeamSettingView>();
+            containerRegistry.RegisterForNavigation<SelectedPlayerView>();
+            containerRegistry.RegisterForNavigation<WaitPlayerView>();
         }
 
         protected override void OnInitialized()
@@ -30,10 +29,10 @@ namespace WpfApp1
 
             var RegionManager = Container.Resolve<IRegionManager>();
 
-            RegionManager.RequestNavigate(RegionNames.LeftPlayerExplorer, "PlayerView");
-            RegionManager.RequestNavigate(RegionNames.RightPlayerExplorer, "PlayerMirrorView");
-            RegionManager.RequestNavigate(RegionNames.SelectPlayerRegion, "PlayerSelectView");
-            RegionManager.RequestNavigate(RegionNames.WaitPlayerExplorer, "PlayerWaitView");
+            
+            RegionManager.RequestNavigate(RegionNames.TeamSettingRegion, "TeamSettingView");
+            RegionManager.RequestNavigate(RegionNames.WaitPlayerRegion, "WaitPlayerView");
+            RegionManager.RequestNavigate(RegionNames.SelectedPlayerRegion, "SelectedPlayerView");
 
         }
     }

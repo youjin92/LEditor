@@ -8,22 +8,20 @@
         xmlns:utils="clr-namespace:LEditor.Utils"
         xmlns:local="clr-namespace:LEditor.Views"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="800" Width="900"
+        Title="{Binding Title}" Height="800" Width="1200"
         prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Grid Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height=".7*"/>
-            <RowDefinition Height=".3*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Grid.Column="0" prism:RegionManager.RegionName="{x:Static common:RegionNames.LeftPlayerExplorer}"/>
-        <ContentControl Grid.Row="0" Grid.Column="2" prism:RegionManager.RegionName="{x:Static common:RegionNames.RightPlayerExplorer}"/>
-        <ContentControl Grid.Row="0" Grid.Column="1" prism:RegionManager.RegionName="{x:Static common:RegionNames.WaitPlayerExplorer}"/>
-        <ContentControl Grid.Row="1" Grid.ColumnSpan="3" prism:RegionManager.RegionName="{x:Static common:RegionNames.SelectPlayerRegion}"/>
+        <ContentControl Grid.Column="0" prism:RegionManager.RegionName="{x:Static common:RegionNames.TeamSettingRegion}"/>
+        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="{x:Static common:RegionNames.SelectedPlayerRegion}"/>
+        <ContentControl Grid.Column="2" prism:RegionManager.RegionName="{x:Static common:RegionNames.WaitPlayerRegion}"/>
     </Grid>
 </Window>

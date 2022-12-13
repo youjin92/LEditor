@@ -16,10 +16,10 @@ namespace LEditor.Common
         Diamond,
     }
 
-    public enum PlayerState
+    public enum PlayerPosition
     {
-        None,
         Wait,
+        Selected,
         LeftTeam,
         RightTeam,
     }
@@ -31,12 +31,19 @@ namespace LEditor.Common
     }
 
     [Flags]
-    public enum Position
+    public enum InGamePosition
     {
-        Top         = 1 << 0,
-        Jungle      = 1 << 1,
-        Mid         = 1 << 2,
-        AD          = 1 << 3,
-        Support     = 1 << 4,
+        None        = 1 << 0,
+        Top         = 1 << 1,
+        Jungle      = 1 << 2,
+        Mid         = 1 << 3,
+        AD          = 1 << 4,
+        Support     = 1 << 5,
+    }
+
+    public enum DropState
+    {
+        CanDrop,
+        CannotDrop
     }
 }

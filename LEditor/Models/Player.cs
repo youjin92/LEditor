@@ -14,8 +14,8 @@ namespace LEditor.Models
     {
         public string Name { get; set; } = "Name";
         public Rank Rank { get; set; }
-        public Position Position { get; set; }
-        public PlayerState State { get; set; }
+        public InGamePosition Position { get; set; }
+        public PlayerPosition State { get; set; }
 
     }
 }

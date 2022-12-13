@@ -40,6 +40,7 @@ namespace LEditor.Common.Draggables
 
         public string DragTagName = "TagName";
         public object DragPropertyobject = null;
+        public bool IsDragable = true;
 
         public DragDropEffects DragDropEffectsMode = DragDropEffects.Copy;
 
@@ -67,7 +68,10 @@ namespace LEditor.Common.Draggables
         {
             MouseMove += UserControl_MouseMove;
             PreviewGiveFeedback += UserControl_PreviewGiveFeedback;
+            GiveFeedback += UserControl_GiveFeedback;
         }
+
+
 
         #endregion
 
@@ -83,7 +87,8 @@ namespace LEditor.Common.Draggables
         /// <param name="e">이벤트 인자</param>
         private void UserControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            var Dragcontrol = sender as Draggable;
+            if (e.LeftButton == MouseButtonState.Pressed && Dragcontrol.IsDragable)
             {
                 DataObject dataObject = new DataObject(DragTagName, DragPropertyobject);
 
@@ -111,9 +116,15 @@ namespace LEditor.Common.Draggables
         {
             GetCursorPos(ref cursorPoint);
 
-            Point point = PointFromScreen(cursorPoint.GetPoint(draggableAdorner.CenterPointOffset));
+            Point point = PointFromScreen(cursorPoint.GetPoint(10,10));
 
             draggableAdorner.Arrange(new Rect(point, draggableAdorner.DesiredSize));
+        }
+
+        private void UserControl_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            Mouse.SetCursor(Cursors.Hand);
+            e.Handled = true;
         }
 
         #endregion

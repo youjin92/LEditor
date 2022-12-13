@@ -58,20 +58,20 @@ namespace LEditor.Usercontrols
                 {
                     case ButtonDirection.LeftButton:
                         {
-                            player.State = PlayerState.LeftTeam;
+                            player.State = PlayerPosition.LeftTeam;
                             break;
                         }
                     case ButtonDirection.RightButton:
                         {
-                            player.State = PlayerState.RightTeam;
+                            player.State = PlayerPosition.RightTeam;
                             break;
                         }
-                    case ButtonDirection.DownButton:
-                        {
-                            player.State = PlayerState.None;
+                    //case ButtonDirection.DownButton:
+                    //    {
+                    //        player.State = PlayerPosition.None;
                       
-                            break;
-                        }
+                    //        break;
+                    //    }
                     default:
                         break;
                 }

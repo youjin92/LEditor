@@ -113,37 +113,64 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppConfig\AppInstance.cs" />
     <Compile Include="Behaviors\ButtonClickBehavior.cs" />
+    <Compile Include="Common\AdornedControls\AdornedControl.cs" />
+    <Compile Include="Common\AdornedControls\FrameworkElementAdorner.cs" />
+    <Compile Include="Common\Draggables\DragDropPreviewBase.cs" />
     <Compile Include="Common\Dropables\Dropable.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Converters\IsTextEmptyCollapseConverter.cs" />
+    <Compile Include="Converters\IsTextEmptyConverter.cs" />
+    <Compile Include="Converters\IsTextEmptyVisibleConverter.cs" />
     <Compile Include="Events\GoToRightViewEvent.cs" />
     <Compile Include="Events\GoToLeftViewEvent.cs" />
     <Compile Include="Events\GoToSelectViewEvent.cs" />
+    <Compile Include="Events\UpdatePlayerEvent.cs" />
     <Compile Include="Events\GoToWaitViewEvent.cs" />
+    <Compile Include="Usercontrols\DragAdorner.xaml.cs">
+      <DependentUpon>DragAdorner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Usercontrols\DragPreview.xaml.cs">
+      <DependentUpon>DragPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Usercontrols\WaitPlayer.xaml.cs">
       <DependentUpon>WaitPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\BaseViewModel.cs" />
     <Compile Include="Utils\CustomRoutedCommand.cs" />
     <Compile Include="Utils\DataGridHelper.cs" />
+    <Compile Include="Utils\DropManager.cs" />
     <Compile Include="Utils\HitTestResultExtension.cs" />
-    <Compile Include="ViewModels\PlayerMirrorViewModel.cs" />
-    <Compile Include="ViewModels\PlayerSelectViewModel.cs" />
-    <Compile Include="ViewModels\PlayerWaitViewModel.cs" />
-    <Compile Include="ViewModels\PlayerViewModel.cs" />
-    <Compile Include="Views\PlayerMirrorView.xaml.cs">
-      <DependentUpon>PlayerMirrorView.xaml</DependentUpon>
+    <Compile Include="Utils\Singleton.cs" />
+    <Compile Include="ViewModels\TeamSettingViewModel.cs" />
+    <Compile Include="ViewModels\WaitPlayerViewModel.cs" />
+    <Compile Include="ViewModels\SelectedPlayerViewModel.cs" />
+    <Compile Include="ViewModels\PlayerSettingViewModel.cs" />
+    <Compile Include="Views\TeamSettingView.xaml.cs">
+      <DependentUpon>TeamSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlayerSelectView.xaml.cs">
-      <DependentUpon>PlayerSelectView.xaml</DependentUpon>
+    <Compile Include="Views\WaitPlayerView.xaml.cs">
+      <DependentUpon>WaitPlayerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlayerWaitView.xaml.cs">
-      <DependentUpon>PlayerWaitView.xaml</DependentUpon>
+    <Compile Include="Views\SelectedPlayerView.xaml.cs">
+      <DependentUpon>SelectedPlayerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlayerView.xaml.cs">
-      <DependentUpon>PlayerView.xaml</DependentUpon>
+    <Compile Include="Views\PlayerSettingView.xaml.cs">
+      <DependentUpon>PlayerSettingView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Converters\Converters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\MaterialStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Usercontrols\DragAdorner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Usercontrols\DragPreview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -176,19 +203,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PlayerMirrorView.xaml">
+    <Page Include="Views\TeamSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PlayerSelectView.xaml">
+    <Page Include="Views\WaitPlayerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PlayerWaitView.xaml">
+    <Page Include="Views\SelectedPlayerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PlayerView.xaml">
+    <Page Include="Views\PlayerSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,7 +247,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Diamond.png" />
+    <Resource Include="Images\Gold.png" />
+    <Resource Include="Images\Iron.png" />
+    <Resource Include="Images\Pletinum.png" />
+    <Resource Include="Images\Silver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\User-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bronze.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

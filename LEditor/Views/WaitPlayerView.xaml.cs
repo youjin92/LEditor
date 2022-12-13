@@ -18,9 +18,9 @@ namespace LEditor.Views
     /// <summary>
     /// PlayerView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class PlayerSelectView : UserControl
+    public partial class WaitPlayerView : UserControl
     {
-        public PlayerSelectView()
+        public WaitPlayerView()
         {
             InitializeComponent();
         }

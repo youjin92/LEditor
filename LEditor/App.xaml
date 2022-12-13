@@ -2,12 +2,15 @@
     x:Class="WpfApp1.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WpfApp1"
+             xmlns:appConfigs="clr-namespace:LEditor.AppConfig"
              xmlns:prism="http://prismlibrary.com/">
     <Application.Resources>
         <ResourceDictionary>
+            <appConfigs:AppInstance x:Key="AppInstance"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/MaterialStyle.xaml" />
+                <ResourceDictionary Source="/Converters/Converters.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
