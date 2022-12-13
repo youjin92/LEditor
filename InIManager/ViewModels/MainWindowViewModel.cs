@@ -6,16 +6,32 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.IO;
 
 namespace InIManager.ViewModels
 {
     class MainWindowViewModel : BindableBase
     {
+        public string INIPath { get; set; } = Path.Combine(System.Environment.CurrentDirectory, "Player.ini");
+
         #region 프로퍼티
         public string Title { get; set; } = "InIManager";
-        public string LoadAddress { get; set; } = @"C:\Player.ini";
         public ObservableCollection<Player> ItemList { get; set; } = new ObservableCollection<Player>();
-        public Player ModifiedPlayer { get; set; } = new Player();
+
+        private Player _ModifiedPlayer = new Player();
+        public Player ModifiedPlayer {
+            get
+            {
+                if (_ModifiedPlayer == null && ItemList.Count > 0)
+                    _ModifiedPlayer = ItemList[0];
+                return _ModifiedPlayer;
+            } 
+            set
+            {
+                _ModifiedPlayer = value;
+                RaisePropertyChanged();
+            }
+        } 
         #endregion
 
         #region 필드
@@ -31,7 +47,12 @@ namespace InIManager.ViewModels
 
         private void ReloadItemList()
         {
-            MainInI.Load(LoadAddress);
+            if (!File.Exists(INIPath))
+            {
+                MainInI.Save(INIPath);
+            }
+
+            MainInI.Load(INIPath);
 
             if (MainInI.Keys.Count > 0)
             {
@@ -47,6 +68,7 @@ namespace InIManager.ViewModels
         {
             Player player   = new Player();
             player.Name     = MainInI[Section]["Name"].ToString();
+            player.MMR      = MainInI[Section]["MMR"].ToInt();
             player.Rank     = EnumUtil<Rank>.Parse(MainInI[Section]["Rank"].ToString());
             player.Position = EnumUtil<Position>.Parse(MainInI[Section]["Position"].ToString());
             player.State    = EnumUtil<PlayerState>.Parse(MainInI[Section]["State"].ToString());
@@ -57,6 +79,7 @@ namespace InIManager.ViewModels
         private void MakeBlankPlayer()
         {
             ModifiedPlayer.Name = "";
+            ModifiedPlayer.MMR = 0;
             ModifiedPlayer.Rank = Rank.Iron;
             ModifiedPlayer.Position = Position.Top;
             ModifiedPlayer.State = PlayerState.None;
@@ -80,17 +103,27 @@ namespace InIManager.ViewModels
                                 break;
                             }
 
+                        case "추가":
+                            {
+                                Player AddPlayer = new Player();
+                                ItemList.Add(AddPlayer);
+
+                                ModifiedPlayer = AddPlayer;
+                                break;
+                            }
+
                         case "저장":
                             {
                                 if (string.IsNullOrEmpty(ModifiedPlayer.Name))
                                     return;
 
                                 MainInI[ModifiedPlayer.Name]["Name"] = ModifiedPlayer.Name.ToString();
+                                MainInI[ModifiedPlayer.Name]["MMR"] = ModifiedPlayer.MMR.ToString();
                                 MainInI[ModifiedPlayer.Name]["Rank"] = ModifiedPlayer.Rank.ToString();
                                 MainInI[ModifiedPlayer.Name]["Position"] = ModifiedPlayer.Position.ToString();
                                 MainInI[ModifiedPlayer.Name]["State"] = ModifiedPlayer.State.ToString();
 
-                                MainInI.Save(LoadAddress);
+                                MainInI.Save(INIPath);
 
                                 ReloadItemList();
                                 break;
@@ -107,10 +140,15 @@ namespace InIManager.ViewModels
                                 if (MainInI.Keys.Contains(ModifiedPlayer.Name))
                                 {
                                     MainInI.Remove(ModifiedPlayer.Name);
-                                    MainInI.Save(LoadAddress);
-                                    ReloadItemList();
+                                    MainInI.Save(INIPath);
+                                    
+                                    if (ItemList.Count > 0)
+                                    {
+                                        ModifiedPlayer = ItemList[0];
+                                        MakeBlankPlayer();
+                                    }
 
-                                    MakeBlankPlayer();
+                                    ReloadItemList();
                                 }
                                 break;
                             }
@@ -133,6 +171,7 @@ namespace InIManager.ViewModels
                         if (textBlock.DataContext is Player player)
                         {
                             ModifiedPlayer.Name = player.Name;
+                            ModifiedPlayer.MMR = player.MMR;
                             ModifiedPlayer.Rank = player.Rank;
                             ModifiedPlayer.Position = player.Position;
                             ModifiedPlayer.State = player.State;

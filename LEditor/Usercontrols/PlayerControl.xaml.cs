@@ -32,6 +32,26 @@ namespace LEditor.Usercontrols
             blankBorder.Visibility = Visibility.Visible;
         }
 
+
+        public object BindingParentControl
+        {
+            get { return (object)GetValue(BindingParentControlProperty); }
+            set { SetValue(BindingParentControlProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ParentControl.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BindingParentControlProperty =
+            DependencyProperty.Register("BindingParentControl", typeof(object), typeof(PlayerControl), new FrameworkPropertyMetadata(null, OnParentControlChanged));
+
+        private static void OnParentControlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            PlayerControl obj = d as PlayerControl;
+
+            object Newobj = e.NewValue as object;
+
+            obj.ParentControl = Newobj;
+        }
+
         public Player Player
         {
             get { return (Player)GetValue(PlayerProperty); }
@@ -48,8 +68,34 @@ namespace LEditor.Usercontrols
 
             Player NewPlayer = e.NewValue as Player;
 
+            Uri uriSource;
+            switch (NewPlayer.Rank)
+            {
+                case Rank.Iron:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Iron.png");
+                    break;
+                case Rank.Bronze:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Bronze.png");
+                    break;
+                case Rank.Silver:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Silver.png");
+                    break;
+                case Rank.Gold:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Gold.png");
+                    break;
+                case Rank.Pletinum:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Pletinum.png");
+                    break;
+                case Rank.Diamond:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Diamond.png");
+                    break;
+                default:
+                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/User-icon.png");
+                    break;
+            }
+            obj.ImageControl.Source = new BitmapImage(uriSource); 
             obj.NameTB.Text = NewPlayer.Name.ToString();
-            obj.RankTB.Text = NewPlayer.Rank.ToString();
+            obj.MMRTB.Text = NewPlayer.MMR.ToString();
             obj.DragPropertyobject = NewPlayer;
 
             if (string.IsNullOrEmpty(obj.NameTB.Text))

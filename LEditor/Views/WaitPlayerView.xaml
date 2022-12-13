@@ -12,7 +12,32 @@
              xmlns:local="clr-namespace:LEditor"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle x:Name="Corner" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Column="1" Grid.Row="1"/>
+                            <AdornerDecorator Grid.Column="0" Grid.Row="0">
+                                <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" CanContentScroll="{TemplateBinding CanContentScroll}" CanHorizontallyScroll="False" CanVerticallyScroll="False"/>
+                            </AdornerDecorator>
+                            <ScrollBar x:Name="PART_VerticalScrollBar" Cursor="Cross" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Grid.Column="1" Grid.Row="0" ViewportSize="{TemplateBinding ViewportHeight}" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Value="{Binding Path=VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" AutomationProperties.AutomationId="VerticalScrollBar"/>
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" Cursor="Hand" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Grid.Column="0" Grid.Row="1" Orientation="Horizontal" ViewportSize="{TemplateBinding ViewportWidth}" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Value="{Binding Path=HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" AutomationProperties.AutomationId="HorizontalScrollBar"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid Background="Gray" >
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -21,31 +46,31 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="{Binding Title}" VerticalAlignment="Center" FontSize="30" Margin="10"/>
         <Separator Grid.Row="1"/>
-        <StackPanel Grid.Row="2" Name="dropPanel" Background="Bisque"                     
-                    AllowDrop="True">
+        <ScrollViewer Grid.Row="2" x:Name="ScrollViewer" AllowDrop="True">
+            <StackPanel Background="Bisque">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Drop">
+                        <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DropCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="DragEnter">
+                        <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragEnterCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="DragLeave">
+                        <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragLeaveCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Drop">
-                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DropCommand}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="DragEnter">
-                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragEnterCommand}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="DragLeave">
-                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragLeaveCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            
-            <ItemsControl ItemsSource="{Binding WaitUsers}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <usercontrols:PlayerControl Player="{Binding}" Margin="10,5"/>
-                            <Separator/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+                <ItemsControl ItemsSource="{Binding WaitUsers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <usercontrols:PlayerControl Player="{Binding}" Margin="10,5" BindingParentControl="{Binding ElementName=ScrollViewer}"/>
+                                <Separator/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

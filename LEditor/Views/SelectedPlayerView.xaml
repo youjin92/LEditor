@@ -25,32 +25,33 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Selected Player" VerticalAlignment="Center" FontSize="30" Margin="10"/>
         <Separator Grid.Row="1"/>
-        <StackPanel Grid.Row="2" Name="dropPanel" 
-                    Background="Beige"
-                    AllowDrop="True">
+        <ScrollViewer Grid.Row="2" x:Name="ScrollViewer" AllowDrop="True">
+            <StackPanel  Name="dropPanel" 
+                    Background="Beige">
             
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Drop">
-                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DropCommand}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="DragEnter">
-                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragEnterCommand}"/>
-                </i:EventTrigger>
-                <i:EventTrigger EventName="DragLeave">
-                    <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragLeaveCommand}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Drop">
+                        <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DropCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="DragEnter">
+                        <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragEnterCommand}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="DragLeave">
+                        <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DragLeaveCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
             
-            <ItemsControl ItemsSource="{Binding WaitUsers}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical">
-                            <usercontrols:PlayerControl Player="{Binding}" Margin="10,5"/>
-                            <Separator/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+                <ItemsControl ItemsSource="{Binding WaitUsers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <usercontrols:PlayerControl Player="{Binding}" Margin="10,5" BindingParentControl="{Binding ElementName=ScrollViewer}"/>
+                                <Separator/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

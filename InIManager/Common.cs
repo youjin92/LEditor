@@ -17,7 +17,18 @@ namespace InIManager
                 Name_ = value;
                 RaisePropertyChanged();
             }
-        } 
+        }
+
+        private int MMR_ = 0;
+        public int MMR
+        {
+            get => MMR_;
+            set
+            {
+                MMR_ = value;
+                RaisePropertyChanged();
+            }
+        }
 
         private Rank Rank_ = Rank.Pletinum;
         public Rank Rank { 

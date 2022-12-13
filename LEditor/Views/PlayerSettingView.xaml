@@ -20,15 +20,15 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="Navy">
+    <Grid Background="{Binding BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="5"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" x:Name="TitleTB" Text="PlayList" VerticalAlignment="Center" FontSize="30" Margin="10" Foreground="White"/>
         <Separator Grid.Row="1"/>

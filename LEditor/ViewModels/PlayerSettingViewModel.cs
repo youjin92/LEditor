@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace LEditor.ViewModels
 {
@@ -23,6 +24,9 @@ namespace LEditor.ViewModels
         private readonly IEventAggregator _eventAggregator;
 
         private readonly PlayerPosition playerPosition;
+
+        
+        public Brush BackgroundColor { get; set; } 
 
         public Player TopPlayer { get; set; } = new Player { Name = "" };
         public Player JunglePlayer { get; set; } = new Player { Name = "" };
@@ -35,6 +39,18 @@ namespace LEditor.ViewModels
             _eventAggregator = eventAggregator;
 
             playerPosition = _PlayerPosition;
+
+            switch (_PlayerPosition)
+            {
+                case PlayerPosition.LeftTeam:
+                    BackgroundColor = Brushes.PaleVioletRed;
+                    break;
+                case PlayerPosition.RightTeam:
+                    BackgroundColor = Brushes.DarkSlateBlue;
+                    break;
+                default:
+                    break;
+            }
 
             _eventAggregator.GetEvent<UpdatePlayerEvent>().Subscribe(UpdateItemList);
         }
@@ -135,6 +151,13 @@ namespace LEditor.ViewModels
                     var dropedPlayer = e.Data.GetData("Player") as Player;
 
                     PlayerControl playerControl = e.Source as PlayerControl;
+
+                    if (playerControl.DragPropertyobject is Player OriginPlayer)
+                    {
+                        if (!string.IsNullOrEmpty(OriginPlayer.Name))
+                            return;
+                    }
+
                     playerControl.Player = dropedPlayer;
                     InGamePosition DropedInGamePosition = InGamePosition.None;
 

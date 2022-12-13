@@ -13,9 +13,9 @@ namespace LEditor.Models
     public class Player : BindableBase
     {
         public string Name { get; set; } = "Name";
+        public int MMR { get; set; } = 0;
         public Rank Rank { get; set; }
         public InGamePosition Position { get; set; }
         public PlayerPosition State { get; set; }
-
     }
 }

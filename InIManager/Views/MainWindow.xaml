@@ -9,17 +9,17 @@
         xmlns:local="clr-namespace:InIManager"
         xmlns:markups="clr-namespace:InIManager.MarkupExtensions"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="1000">
+        Title="{Binding Title}" Height="450" Width="1200">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
         
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="불러오는 주소        :      " HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Text="{Binding LoadAddress}" MinWidth="250" Margin="0,0,40,0"/>
+                <TextBox Text="{Binding INIPath,Mode=TwoWay}" MinWidth="250" Margin="0,0,40,0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding ClickCommand}" Content="{Binding RelativeSource={RelativeSource self}, Path=CommandParameter}" CommandParameter="불러오기" Margin="5"/>
@@ -29,6 +29,10 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Name         :   "/>
                     <TextBox Text="{Binding ModifiedPlayer.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="MMR          :   "/>
+                    <TextBox Text="{Binding ModifiedPlayer.MMR, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Rank           :  "/>
@@ -52,6 +56,7 @@
                               MinWidth="200"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding ClickCommand}" Content="{Binding RelativeSource={RelativeSource self}, Path=CommandParameter}" CommandParameter="추가" Margin="5"/>
                     <Button Command="{Binding ClickCommand}" Content="{Binding RelativeSource={RelativeSource self}, Path=CommandParameter}" CommandParameter="저장" Margin="5"/>
                     <Button Command="{Binding ClickCommand}" Content="{Binding RelativeSource={RelativeSource self}, Path=CommandParameter}" CommandParameter="초기화" Margin="5"/>
                     <Button Command="{Binding ClickCommand}" Content="{Binding RelativeSource={RelativeSource self}, Path=CommandParameter}" CommandParameter="삭제(Name입력 필수)" Margin="5"/>
@@ -64,7 +69,9 @@
                   VerticalScrollBarVisibility="Auto" 
                   CanUserResizeRows="False"
                   CanUserAddRows="False"
-                  SelectedItem="{Binding ModifiedPlayer, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                  SelectedItem="{Binding ModifiedPlayer, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
+                  SelectionMode="Single"
+                  SelectionUnit="FullRow"
                   AutoGenerateColumns="False">
 
             <i:Interaction.Triggers>
@@ -74,10 +81,11 @@
             </i:Interaction.Triggers>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="State" Binding="{Binding State}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="True" Width="1*"/>
+                <DataGridTextColumn Header="MMR" Binding="{Binding MMR}" IsReadOnly="True" Width=".5*"/>
+                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" IsReadOnly="True" Width=".5*"/>
+                <DataGridTextColumn Header="Position" Binding="{Binding Position}" IsReadOnly="True" Width=".5*"/>
+                <DataGridTextColumn Header="State" Binding="{Binding State}" IsReadOnly="True" Width=".5*"/>
             </DataGrid.Columns>
             
         </DataGrid>

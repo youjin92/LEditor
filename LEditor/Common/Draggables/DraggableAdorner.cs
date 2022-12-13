@@ -53,10 +53,12 @@ namespace LEditor.Common.Draggables
         /// 생성자
         /// </summary>
         /// <param name="draggable">드래그 가능 객체</param>
-        public DraggableAdorner(Draggable draggable) : base(draggable)
+        public DraggableAdorner(UIElement _draggable) : base(_draggable)
         {
-            this.renderRectangle = new Rect(new Size(500, 100));
+            Draggable draggable = _draggable as Draggable;
 
+            this.renderRectangle = new Rect(new Size(300, 50));
+            
             IsHitTestVisible = false;
 
             draggable.Background = Brushes.LightGray;

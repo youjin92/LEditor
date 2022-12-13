@@ -40,6 +40,8 @@ namespace LEditor.Common.Draggables
 
         public string DragTagName = "TagName";
         public object DragPropertyobject = null;
+
+        public object ParentControl = null;
         public bool IsDragable = true;
 
         public DragDropEffects DragDropEffectsMode = DragDropEffects.Copy;
@@ -92,7 +94,16 @@ namespace LEditor.Common.Draggables
             {
                 DataObject dataObject = new DataObject(DragTagName, DragPropertyobject);
 
-                AdornerLayer adornerLayer = AdornerLayer.GetAdornerLayer(this);
+                AdornerLayer adornerLayer;
+                if (ParentControl != null)
+                {
+                    var a = ParentControl as UIElement;
+                    adornerLayer = AdornerLayer.GetAdornerLayer(a);
+                }
+                else
+                    adornerLayer = AdornerLayer.GetAdornerLayer(this);
+
+                //this.VisualParent
 
                 draggableAdorner = new DraggableAdorner(this);
 

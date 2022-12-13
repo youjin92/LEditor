@@ -20,7 +20,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Views:PlayerSettingView Grid.Column="0" DataContext="{Binding RedTeamPlayerSettingViewModel}"  Title="RedTeam" Margin="5"/>
-        <TextBlock Grid.Column="1" Text="vs" FontSize="40" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Text="vs" FontSize="40" VerticalAlignment="Center" Padding="6" Margin="0,0,0,200"/>
         <Views:PlayerSettingView Grid.Column="2" DataContext="{Binding BlueTeamPlayerSettingViewModel}" Title="BlueTeam" Margin="5"/>
     </Grid>
 </UserControl>
