@@ -119,6 +119,7 @@
     <Compile Include="Common\AdornedControls\FrameworkElementAdorner.cs" />
     <Compile Include="Common\Draggables\DragDropPreviewBase.cs" />
     <Compile Include="Common\Dropables\Dropable.cs" />
+    <Compile Include="Common\ini.cs" />
     <Compile Include="Converters\IsTextEmptyCollapseConverter.cs" />
     <Compile Include="Converters\IsTextEmptyConverter.cs" />
     <Compile Include="Converters\IsTextEmptyVisibleConverter.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Utils\CustomRoutedCommand.cs" />
     <Compile Include="Utils\DataGridHelper.cs" />
     <Compile Include="Utils\DropManager.cs" />
+    <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="Utils\HitTestResultExtension.cs" />
     <Compile Include="Utils\Singleton.cs" />
     <Compile Include="ViewModels\TeamSettingViewModel.cs" />

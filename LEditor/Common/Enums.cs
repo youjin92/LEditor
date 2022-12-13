@@ -18,6 +18,7 @@ namespace LEditor.Common
 
     public enum PlayerPosition
     {
+        None,
         Wait,
         Selected,
         LeftTeam,

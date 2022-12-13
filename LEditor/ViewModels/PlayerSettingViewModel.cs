@@ -1,4 +1,5 @@
-﻿using LEditor.Common;
+﻿using LEditor.AppConfig;
+using LEditor.Common;
 using LEditor.Events;
 using LEditor.Models;
 using LEditor.Usercontrols;
@@ -43,10 +44,10 @@ namespace LEditor.ViewModels
             switch (_PlayerPosition)
             {
                 case PlayerPosition.LeftTeam:
-                    BackgroundColor = Brushes.PaleVioletRed;
+                    BackgroundColor = AppInstance.Instance.LeftTeamColor;
                     break;
                 case PlayerPosition.RightTeam:
-                    BackgroundColor = Brushes.DarkSlateBlue;
+                    BackgroundColor = AppInstance.Instance.RightTeamColor;
                     break;
                 default:
                     break;
