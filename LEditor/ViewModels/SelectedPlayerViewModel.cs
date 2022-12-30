@@ -14,25 +14,48 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using LEditor.Utils;
-using LEditor.Behaviors;
 using LEditor.Common;
+using LEditor.Services;
+using LEditor.AppConfig;
+using LEditor.Usercontrols;
 
 namespace LEditor.ViewModels
 {
-    public class SelectedPlayerViewModel : BaseViewModel
+    public class SelectedPlayerViewModel : BindableBase
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IApplicationCommands _applicationCommands;
+        public PlayerControl CurrentPlayerControl = null;
 
         public ObservableCollection<Player> WaitUsers { get; set; } = new ObservableCollection<Player>();
 
-        public SelectedPlayerViewModel(IEventAggregator eventAggregator)
+        public SelectedPlayerViewModel(IApplicationCommands applicationCommands, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+            _applicationCommands = applicationCommands;
 
-            _eventAggregator.GetEvent<UpdatePlayerEvent>().Subscribe(UpdateItemList);
+            _applicationCommands.RandomTeamMatchingCommand.RegisterCommand(InitSelectedUsers);
+
+            _eventAggregator.GetEvent<RemovePlayerInSelectViewEvent>().Subscribe(RemovePlayer);
+            _eventAggregator.GetEvent<AddPlayerInSelectViewEvent>().Subscribe(AddPlayer);
+
         }
 
-        private void UpdateItemList(EventParam obj) => DropManager.RemoveDropedPlayer(obj, PlayerPosition.Selected, WaitUsers);
+        private void AddPlayer(EventParam obj)
+        {
+            var player = obj.Item as Player;
+
+            if (!WaitUsers.Contains(player))
+                WaitUsers.Add(player);
+        }
+
+        private void RemovePlayer(EventParam obj)
+        {
+            var player = obj.Item as Player;
+
+            if (WaitUsers.Contains(player))
+                WaitUsers.Remove(player);
+        }
 
         #region Command
 
@@ -40,7 +63,11 @@ namespace LEditor.ViewModels
         {
             get
             {
-                return new DelegateCommand<DragEventArgs>(e => DropManager.AddDropedPlayerAndFireUpdateEvent(e, WaitUsers, _eventAggregator, PlayerPosition.Selected));
+                return new DelegateCommand<DragEventArgs>((e) =>
+                {
+                    DropManager.Instance.DropedPosition = PlayerPosition.Selected;
+                    DropManager.Instance.Move(_eventAggregator);
+                });
             }
         }
 
@@ -48,9 +75,15 @@ namespace LEditor.ViewModels
         {
             get
             {
-                return new DelegateCommand<object>((e) =>
+                return new DelegateCommand<DragEventArgs>((e) =>
                 {
+                    var DragedPlayer = e.Data.GetData("Player") as Player;
 
+                    if (DragedPlayer != null && !DropManager.Instance.isDragged)
+                    {
+                        DropManager.Instance.SetDraggedPlayer(DragedPlayer);
+                        DropManager.Instance.DragedPosition = PlayerPosition.Selected;
+                    }
                 });
             }
         }
@@ -62,6 +95,18 @@ namespace LEditor.ViewModels
                 return new DelegateCommand<object>((e) =>
                 {
 
+                });
+            }
+        }
+
+        public ICommand InitSelectedUsers
+        {
+            get
+            {
+                return new DelegateCommand<object>((e) =>
+                {
+                    AppInstance.Instance.RandomTeamMatchingUsers = WaitUsers;
+                    AppInstance.Instance.TeamMatchingLogic();
                 });
             }
         }

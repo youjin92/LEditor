@@ -7,28 +7,21 @@
              xmlns:i ="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"            
              xmlns:local="clr-namespace:LEditor.Views"
-             xmlns:Behaviors="clr-namespace:LEditor.Behaviors"
-
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-
-    <i:Interaction.Behaviors>
-        <Behaviors:ButtonClickBehavior/>
-    </i:Interaction.Behaviors>
-    
-    <Grid Background="SkyBlue">
+    <Grid Background="DimGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Selected Player" VerticalAlignment="Center" FontSize="30" Margin="10"/>
+        <TextBlock Grid.Row="0" Text="Selected Player" VerticalAlignment="Center" FontSize="30" Margin="10" Foreground="Wheat"/>
         <Separator Grid.Row="1"/>
         <ScrollViewer Grid.Row="2" x:Name="ScrollViewer" AllowDrop="True">
-            <StackPanel  Name="dropPanel" 
-                    Background="Beige">
-            
+            <StackPanel Name="dropPanel" 
+                        Background="DimGray">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Drop">
                         <prism:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Path=DataContext.DropCommand}"/>
@@ -45,7 +38,25 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical">
-                                <usercontrols:PlayerControl Player="{Binding}" Margin="10,5" BindingParentControl="{Binding ElementName=ScrollViewer}"/>
+                                <Grid>
+                                    <Rectangle StrokeThickness="2" Margin="5" Stroke="AliceBlue">
+                                        <Rectangle.Style>
+                                            <Style TargetType="Rectangle">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="true">
+                                                        <Setter Property="Stroke" Value="Aqua"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsSelected,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="false">
+                                                        <Setter Property="Stroke" Value="Yellow"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Rectangle.Style>
+                                    </Rectangle>
+                                    <usercontrols:PlayerControl x:Name="playerControl" Player="{Binding}" Margin="10" BindingParentControl="{Binding ElementName=ScrollViewer}" />
+                                </Grid>
+                               
+                             
                                 <Separator/>
                             </StackPanel>
                         </DataTemplate>
@@ -53,5 +64,8 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
+        <TextBlock Grid.Row="3" Text="{Binding WaitUsers.Count,Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                   HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5"
+                   FontSize="20" FontWeight="Bold"/>
     </Grid>
 </UserControl>

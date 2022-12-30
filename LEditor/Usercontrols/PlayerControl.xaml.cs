@@ -30,8 +30,11 @@ namespace LEditor.Usercontrols
             DragPropertyobject = Player;
 
             blankBorder.Visibility = Visibility.Visible;
-        }
 
+            DragEnterAction += new DragEventHandler(UserControl_DragEnter);
+            DropAction += new DragEventHandler(UserControl_Drop);
+            DragLeave += new DragEventHandler(UserControl_DragLeave);
+        }
 
         public object BindingParentControl
         {
@@ -108,7 +111,24 @@ namespace LEditor.Usercontrols
                 obj.blankBorder.Visibility = Visibility.Collapsed;
                 obj.IsDragable = true;
             }
-                
+        }
+
+        private void UserControl_DragEnter(object sender, DragEventArgs e)
+        {
+            this.rectangle.Stroke = Brushes.Wheat;
+            this.rectangle.StrokeDashArray = new DoubleCollection() { 4, 2 };
+        }
+
+        private void UserControl_Drop(object sender, DragEventArgs e)
+        {
+            this.rectangle.Stroke = Brushes.Wheat;
+            this.rectangle.StrokeDashArray = null;
+        }
+
+        private void UserControl_DragLeave(object sender, DragEventArgs e)
+        {
+            this.rectangle.Stroke = Brushes.Wheat;
+            this.rectangle.StrokeDashArray = null;
         }
 
     }

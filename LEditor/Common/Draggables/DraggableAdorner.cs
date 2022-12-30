@@ -57,11 +57,11 @@ namespace LEditor.Common.Draggables
         {
             Draggable draggable = _draggable as Draggable;
 
-            this.renderRectangle = new Rect(new Size(300, 50));
+            this.renderRectangle = new Rect(new Size(250, 60));
             
             IsHitTestVisible = false;
 
-            draggable.Background = Brushes.LightGray;
+            draggable.Background = Brushes.Gray;
             this.renderBrush = draggable.Background.Clone();
 
             if (draggable.DragPropertyobject != null && draggable.DragPropertyobject is Player player)
@@ -116,15 +116,15 @@ namespace LEditor.Common.Draggables
 
             drawingContext.DrawImage(imageSource, imageRect);
 
-            string ToolTipMessage = $"{DragObject.Name} | {DragObject.Rank}";
+            string ToolTipMessage = $"{DragObject.Name} \nMMR : {DragObject.MMR}";
             FormattedText formattedText = new FormattedText(
                                             ToolTipMessage,
                                             CultureInfo.CurrentUICulture,
                                             FlowDirection.LeftToRight,
                                             new Typeface("Verdana"),
-                                            this.renderRectangle.Height / 2,
+                                            this.renderRectangle.Height / 3,
                                             Brushes.Black);
-            drawingContext.DrawText(formattedText, new Point(imageRect.Width + 10, renderRectangle.Height/4));
+            drawingContext.DrawText(formattedText, new Point(imageRect.Width + 10, 5));
 
         }
         #endregion

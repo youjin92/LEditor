@@ -7,21 +7,44 @@
         xmlns:common="clr-namespace:LEditor.Common"
         xmlns:utils="clr-namespace:LEditor.Utils"
         xmlns:local="clr-namespace:LEditor.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="800" Width="1200"
+        Title="{Binding Title}" Height="900" Width="1700"
         prism:ViewModelLocator.AutoWireViewModel="True">
    
-    <Grid Margin="5">
+    <Grid Margin="5" Background="Gray">
         <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" prism:RegionManager.RegionName="{x:Static common:RegionNames.TeamSettingRegion}"/>
-        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="{x:Static common:RegionNames.SelectedPlayerRegion}"/>
-        <ContentControl Grid.Column="2" prism:RegionManager.RegionName="{x:Static common:RegionNames.WaitPlayerRegion}"/>
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    FontWeight="bold" FontSize="18"
+                    Width="150"
+                    Height="80"
+                    ToolTip="Resource name: MaterialDesignRaisedAccentButton"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Content="랜덤 팀 생성"
+                    Command="{Binding ApplicationCommands.RandomTeamMatchingCommand}"/>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    FontWeight="bold" FontSize="18"
+                    Width="170"
+                    Height="80"
+                    ToolTip="Resource name: MaterialDesignRaisedAccentButton"
+                    materialDesign:RippleAssist.Feedback="#DD000000"
+                    Content="팀 설정 초기화"
+                    Command="{Binding ApplicationCommands.ResetTeamCommand}"/>
+        </StackPanel>
+        <ContentControl Grid.Row="1" Grid.Column="0" prism:RegionManager.RegionName="{x:Static common:RegionNames.TeamSettingRegion}"/>
+        <ContentControl Grid.Row="1" Grid.Column="1" prism:RegionManager.RegionName="{x:Static common:RegionNames.RandomTeamRegion}" Margin="5"/>
+        <ContentControl Grid.Row="1" Grid.Column="2" prism:RegionManager.RegionName="{x:Static common:RegionNames.SelectedPlayerRegion}" Margin="5"/>
+        <ContentControl Grid.Row="1" Grid.Column="3" prism:RegionManager.RegionName="{x:Static common:RegionNames.WaitPlayerRegion}" Margin="5"/>
     </Grid>
 </Window>

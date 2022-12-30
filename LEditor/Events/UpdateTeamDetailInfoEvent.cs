@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace LEditor.Events
 {
+    public class UpdateTeamDetailInfoEvent : PubSubEvent<EventParam>
+    {
 
-    public class GoToSelectViewEvent : PubSubEvent<EventParam>
+    }
+    public class RefreshTeamDetailInfoEvent : PubSubEvent<EventParam>
     {
 
     }

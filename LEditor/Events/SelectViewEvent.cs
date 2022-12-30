@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace LEditor.Events
 {
-
-    public class GoToWaitViewEvent : PubSubEvent<EventParam>
+    public class AddPlayerInSelectViewEvent : PubSubEvent<EventParam>
     {
 
     }
 
+    public class RemovePlayerInSelectViewEvent : PubSubEvent<EventParam>
+    {
 
+    }
 }

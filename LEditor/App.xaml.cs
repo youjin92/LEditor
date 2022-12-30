@@ -1,4 +1,5 @@
 ﻿using LEditor.Common;
+using LEditor.Services;
 using LEditor.Views;
 using Prism.Ioc;
 using Prism.Regions;
@@ -18,9 +19,13 @@ namespace WpfApp1
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<IApplicationCommands, ApplicationCommands>();
+
             containerRegistry.RegisterForNavigation<TeamSettingView>();
             containerRegistry.RegisterForNavigation<SelectedPlayerView>();
             containerRegistry.RegisterForNavigation<WaitPlayerView>();
+            containerRegistry.RegisterForNavigation<RandomTeamView>();
+
         }
 
         protected override void OnInitialized()
@@ -33,6 +38,7 @@ namespace WpfApp1
             RegionManager.RequestNavigate(RegionNames.TeamSettingRegion, "TeamSettingView");
             RegionManager.RequestNavigate(RegionNames.WaitPlayerRegion, "WaitPlayerView");
             RegionManager.RequestNavigate(RegionNames.SelectedPlayerRegion, "SelectedPlayerView");
+            RegionManager.RequestNavigate(RegionNames.RandomTeamRegion, "RandomTeamView");
 
         }
     }

@@ -9,6 +9,7 @@ namespace LEditor.Common
     public static class RegionNames
     {
         public const string TeamSettingRegion = "TeamSettingRegion";
+        public const string RandomTeamRegion = "RandomTeamRegion";
         public const string SelectedPlayerRegion = "WaitPlayerExplorer";
         public const string WaitPlayerRegion = "SelectPlayerRegion";
     }

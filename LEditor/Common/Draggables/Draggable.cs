@@ -71,6 +71,8 @@ namespace LEditor.Common.Draggables
             MouseMove += UserControl_MouseMove;
             PreviewGiveFeedback += UserControl_PreviewGiveFeedback;
             GiveFeedback += UserControl_GiveFeedback;
+
+            DropableInit();
         }
 
 
@@ -102,8 +104,6 @@ namespace LEditor.Common.Draggables
                 }
                 else
                     adornerLayer = AdornerLayer.GetAdornerLayer(this);
-
-                //this.VisualParent
 
                 draggableAdorner = new DraggableAdorner(this);
 
@@ -139,6 +139,77 @@ namespace LEditor.Common.Draggables
         }
 
         #endregion
+
+#region DropEvent
+
+        #region 이벤트
+        public event DragEventHandler DragEnterAction;
+        public event DragEventHandler DropAction;
+        public event DragEventHandler DragLeaveAction;
+        #endregion
+
+
+        #region 생성자 
+
+        /// <summary>
+        /// 생성자
+        /// </summary>
+        public void DropableInit()
+        {
+            DragEnter += UserControl_DragEnter;
+            Drop += UserControl_Drop;
+            DragLeave += UserControl_DragLeave;
+        }
+
+        #endregion
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////// Constructor
+        ////////////////////////////////////////////////////////////////////////////////////////// Public
+
+        #region 사용자 컨트롤 드래그 ENTER 처리하기 - UserControl_DragEnter(sender, e)
+
+        /// <summary>
+        /// 사용자 컨트롤 드래그 ENTER 처리하기
+        /// </summary>
+        /// <param name="sender">이벤트 발생자</param>
+        /// <param name="e">이벤트 인자</param>
+        private void UserControl_DragEnter(object sender, DragEventArgs e)
+        {
+            if (DragEnterAction != null)
+                DragEnterAction(this, e);
+
+        }
+
+        #endregion
+        #region 사용자 컨트롤 DROP 처리하기 - UserControl_Drop(sender, e)
+
+        /// <summary>
+        /// 사용자 컨트롤 DROP 처리하기
+        /// </summary>
+        /// <param name="sender">이벤트 발생자</param>
+        /// <param name="e">이벤트 인자</param>
+        private void UserControl_Drop(object sender, DragEventArgs e)
+        {
+            if (DropAction != null)
+                DropAction(this, e);
+        }
+
+        #endregion
+        #region 사용자 컨트롤 드래그 이탈시 처리하기 - UserControl_DragLeave(sender, e)
+
+        /// <summary>
+        /// 사용자 컨트롤 드래그 이탈시 처리하기
+        /// </summary>
+        /// <param name="sender">이벤트 발생자</param>
+        /// <param name="e">이벤트 인자</param>
+        private void UserControl_DragLeave(object sender, DragEventArgs e)
+        {
+            if (DragLeaveAction != null)
+                DragLeaveAction(this, e);
+        }
+
+        #endregion
+#endregion
     }
 
     /// <summary>

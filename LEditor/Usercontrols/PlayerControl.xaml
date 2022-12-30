@@ -7,23 +7,39 @@
              xmlns:local="clr-namespace:LEditor.Usercontrols"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:draggable ="clr-namespace:LEditor.Common.Draggables"
-             xmlns:Behaviors="clr-namespace:LEditor.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <StackPanel Orientation="Horizontal" Background="LightGray" Height="60">
+
+    <Grid Background="LightSlateGray">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Style.Setters>
+                    <Setter Property="Foreground" Value="Wheat"/>
+                </Style.Setters>
+            </Style>
+        </Grid.Resources>
+
+        <StackPanel x:Name="stackPanel" Orientation="Horizontal" Height="60">
             <Image x:Name="ImageControl"/>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <TextBlock x:Name="NameTB" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
-                <TextBlock x:Name="MMRTB" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="MMR :" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
+                    <TextBlock x:Name="MMRTB" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
+                </StackPanel>
+                
             </StackPanel>
         </StackPanel>
 
-        <Border x:Name="blankBorder"  Background="Aquamarine" Height="60">
-            <Viewbox>
-                <TextBlock Text="Blank" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5">
-                </TextBlock>
-            </Viewbox>
+        <Border x:Name="blankBorder"  Background="DimGray" Height="60">
+            <Grid>
+                <Viewbox>
+                    <TextBlock Text="Blank" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+                </Viewbox>
+            </Grid>
         </Border>
+        
+        <Rectangle Name="rectangle" StrokeThickness="2" Stroke="Wheat"/>
+
     </Grid>
 </draggable:Draggable>

@@ -114,42 +114,33 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppConfig\AppInstance.cs" />
-    <Compile Include="Behaviors\ButtonClickBehavior.cs" />
-    <Compile Include="Common\AdornedControls\AdornedControl.cs" />
-    <Compile Include="Common\AdornedControls\FrameworkElementAdorner.cs" />
-    <Compile Include="Common\Draggables\DragDropPreviewBase.cs" />
-    <Compile Include="Common\Dropables\Dropable.cs" />
     <Compile Include="Common\ini.cs" />
     <Compile Include="Converters\IsTextEmptyCollapseConverter.cs" />
     <Compile Include="Converters\IsTextEmptyConverter.cs" />
     <Compile Include="Converters\IsTextEmptyVisibleConverter.cs" />
-    <Compile Include="Events\GoToRightViewEvent.cs" />
-    <Compile Include="Events\GoToLeftViewEvent.cs" />
-    <Compile Include="Events\GoToSelectViewEvent.cs" />
-    <Compile Include="Events\UpdatePlayerEvent.cs" />
-    <Compile Include="Events\GoToWaitViewEvent.cs" />
-    <Compile Include="Usercontrols\DragAdorner.xaml.cs">
-      <DependentUpon>DragAdorner.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Usercontrols\DragPreview.xaml.cs">
-      <DependentUpon>DragPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Usercontrols\WaitPlayer.xaml.cs">
-      <DependentUpon>WaitPlayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Utils\BaseViewModel.cs" />
-    <Compile Include="Utils\CustomRoutedCommand.cs" />
-    <Compile Include="Utils\DataGridHelper.cs" />
+    <Compile Include="Events\UpdateTeamDetailInfoEvent.cs" />
+    <Compile Include="Events\LeftTeamViewEvent.cs" />
+    <Compile Include="Events\RightTeamViewEvent.cs" />
+    <Compile Include="Events\WaitViewEvent.cs" />
+    <Compile Include="Events\SelectViewEvent.cs" />
+    <Compile Include="Events\RandomTeamMatchingEvent.cs" />
+    <Compile Include="MarkupExtensions\ImageSourceExtension.cs" />
+    <Compile Include="Services\ApplicationCommands.cs" />
+    <Compile Include="Services\IApplicationCommands.cs" />
+    <Compile Include="Utils\Combination.cs" />
     <Compile Include="Utils\DropManager.cs" />
     <Compile Include="Utils\EnumUtil.cs" />
-    <Compile Include="Utils\HitTestResultExtension.cs" />
     <Compile Include="Utils\Singleton.cs" />
     <Compile Include="ViewModels\TeamSettingViewModel.cs" />
+    <Compile Include="ViewModels\RandomTeamViewModel.cs" />
     <Compile Include="ViewModels\WaitPlayerViewModel.cs" />
     <Compile Include="ViewModels\SelectedPlayerViewModel.cs" />
     <Compile Include="ViewModels\PlayerSettingViewModel.cs" />
     <Compile Include="Views\TeamSettingView.xaml.cs">
       <DependentUpon>TeamSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RandomTeamView.xaml.cs">
+      <DependentUpon>RandomTeamView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WaitPlayerView.xaml.cs">
       <DependentUpon>WaitPlayerView.xaml</DependentUpon>
@@ -168,19 +159,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Usercontrols\DragAdorner.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Usercontrols\DragPreview.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Usercontrols\PlayerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Usercontrols\WaitPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +185,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\TeamSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RandomTeamView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -260,6 +243,17 @@
     <Resource Include="Images\Master.png" />
     <Resource Include="Images\Pletinum.png" />
     <Resource Include="Images\Silver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Bottom.png" />
+    <Resource Include="Images\Jungle.png" />
+    <Resource Include="Images\Mid.png" />
+    <Resource Include="Images\Random.png" />
+    <Resource Include="Images\Support.png" />
+    <Resource Include="Images\Top.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

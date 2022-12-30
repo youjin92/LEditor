@@ -21,8 +21,20 @@ namespace LEditor.Common
         None,
         Wait,
         Selected,
+
         LeftTeam,
+        LeftTop,
+        LeftJug,
+        LeftMid,
+        LeftAd,
+        LeftSupport,
+
         RightTeam,
+        RightTop,
+        RightJug,
+        RightMid,
+        RightAd,
+        RightSupport,
     }
 
     public enum PlayerControlDirection
@@ -46,5 +58,12 @@ namespace LEditor.Common
     {
         CanDrop,
         CannotDrop
+    }
+
+    public enum Situation
+    {
+        Move,
+        Copy,
+        Change,
     }
 }

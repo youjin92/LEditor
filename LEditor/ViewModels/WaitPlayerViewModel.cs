@@ -25,16 +25,32 @@ namespace LEditor.ViewModels
         public string Title { get; set; } = "Wait Player";
         public ObservableCollection<Player> WaitUsers { get; set; } = AppInstance.Instance.WaitUsers;
 
+        public int MaxCount { get; set; } = AppInstance.Instance.WaitUsers.Count;
 
         public WaitPlayerViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
 
-            _eventAggregator.GetEvent<UpdatePlayerEvent>().Subscribe(UpdateItemList);
-
+            _eventAggregator.GetEvent<RemovePlayerInWaitViewEvent>().Subscribe(RemovePlayer);
+            _eventAggregator.GetEvent<AddPlayerInWaitViewEvent>().Subscribe(AddPlayer);
         }
 
-        private void UpdateItemList(EventParam obj) => DropManager.RemoveDropedPlayer(obj, PlayerPosition.Wait, WaitUsers);
+        private void AddPlayer(EventParam obj)
+        {
+            var player = obj.Item as Player;
+
+            if (!WaitUsers.Contains(player))
+                WaitUsers.Add(player);
+        }
+
+        private void RemovePlayer(EventParam obj)
+        {
+            var player = obj.Item as Player;
+
+            if (WaitUsers.Contains(player))
+                WaitUsers.Remove(player);
+        }
+
 
         #region Command
 
@@ -42,7 +58,12 @@ namespace LEditor.ViewModels
         {
             get
             {
-                return new DelegateCommand<DragEventArgs>(e => DropManager.AddDropedPlayerAndFireUpdateEvent(e, WaitUsers, _eventAggregator, PlayerPosition.Wait));
+                return new DelegateCommand<DragEventArgs>((e) =>
+                {
+                    //Move
+                    DropManager.Instance.DropedPosition = PlayerPosition.Wait;
+                    DropManager.Instance.Move(_eventAggregator);
+                });
             }
         }
 
@@ -50,9 +71,15 @@ namespace LEditor.ViewModels
         {
             get
             {
-                return new DelegateCommand<object>((e) =>
+                return new DelegateCommand<DragEventArgs>((e) =>
                 {
+                    var DragedPlayer = e.Data.GetData("Player") as Player;
 
+                    if (DragedPlayer != null && !DropManager.Instance.isDragged)
+                    {
+                        DropManager.Instance.SetDraggedPlayer(DragedPlayer);
+                        DropManager.Instance.DragedPosition = PlayerPosition.Wait;
+                    }
                 });
                
             }

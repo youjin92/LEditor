@@ -1,6 +1,4 @@
-﻿using LEditor.Common;
-using LEditor.Common.AdornedControls;
-using LEditor.Common.Draggables;
+﻿using LEditor.Common.Draggables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +10,20 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LEditor.Usercontrols
-{ 
+namespace LEditor.Views
+{
     /// <summary>
-    /// Interaction logic for DragPreview.xaml
+    /// PlayerView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class DragAdorner : AdornedControl
+    public partial class RandomTeamView : UserControl
     {
-        public DragAdorner()
+        public RandomTeamView()
         {
-            InitializeComponent();                        
+            InitializeComponent();
         }
     }
 }
