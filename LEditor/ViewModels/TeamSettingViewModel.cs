@@ -40,7 +40,7 @@ namespace LEditor.ViewModels
         [MethodImpl(MethodImplOptions.Synchronized)]
         private void CheckMatchedPlayer()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }

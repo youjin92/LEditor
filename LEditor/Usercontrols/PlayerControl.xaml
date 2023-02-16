@@ -19,13 +19,17 @@
             </Style>
         </Grid.Resources>
 
-        <StackPanel x:Name="stackPanel" Orientation="Horizontal" Height="60">
+        <StackPanel x:Name="stackPanel" Orientation="Horizontal" Height="65">
             <Image x:Name="ImageControl"/>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock x:Name="NameTB" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,0,8">
+                <TextBlock x:Name="NameTB" Height="20" VerticalAlignment="Center" Padding="5" FontSize="12" FontWeight="Bold"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="MMR :" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
-                    <TextBlock x:Name="MMRTB" Height="30" VerticalAlignment="Center" Padding="5" FontSize="15" FontWeight="Bold"/>
+                    <TextBlock Text="Rank :" Height="20" VerticalAlignment="Center" Padding="5" FontSize="12" FontWeight="Bold"/>
+                    <TextBlock x:Name="RankTB" Height="20" VerticalAlignment="Center" Padding="5" FontSize="12" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="MMR :" Height="20" VerticalAlignment="Center" Padding="5" FontSize="12" FontWeight="Bold"/>
+                    <TextBlock x:Name="MMRTB" Height="20" VerticalAlignment="Center" Padding="5" FontSize="12" FontWeight="Bold"/>
                 </StackPanel>
                 
             </StackPanel>

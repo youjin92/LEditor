@@ -192,7 +192,6 @@ namespace LEditor.AppConfig
             Player player = new Player();
             player.Name = MainInI[Section]["Name"].ToString();
             player.MMR = MainInI[Section]["MMR"].ToInt();
-            player.Rank = EnumUtil<Rank>.Parse(MainInI[Section]["Rank"].ToString());
             player.Position = EnumUtil<InGamePosition>.Parse(MainInI[Section]["Position"].ToString());
             player.State = EnumUtil<PlayerPosition>.Parse(MainInI[Section]["State"].ToString());
 

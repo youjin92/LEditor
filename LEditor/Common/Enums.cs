@@ -9,11 +9,36 @@ namespace LEditor.Common
     public enum Rank
     {
         Iron,
-        Bronze,
-        Silver,
-        Gold,
-        Pletinum,
-        Diamond,
+
+        Bronze1,
+        Bronze2,
+        Bronze3,
+        Bronze4,
+        Bronze5,
+
+        Silver1,
+        Silver2,
+        Silver3,
+        Silver4,
+        Silver5,
+
+        Gold1,
+        Gold2,
+        Gold3,
+        Gold4,
+        Gold5,
+
+        Pletinum1,
+        Pletinum2,
+        Pletinum3,
+        Pletinum4,
+        Pletinum5,
+
+        Diamond1,
+        Diamond2,
+        Diamond3,
+        Diamond4,
+        Diamond5,
     }
 
     public enum PlayerPosition
@@ -37,12 +62,6 @@ namespace LEditor.Common
         RightSupport,
     }
 
-    public enum PlayerControlDirection
-    {
-        Left,
-        Right,
-    }
-
     [Flags]
     public enum InGamePosition
     {
@@ -52,18 +71,5 @@ namespace LEditor.Common
         Mid         = 1 << 3,
         AD          = 1 << 4,
         Support     = 1 << 5,
-    }
-
-    public enum DropState
-    {
-        CanDrop,
-        CannotDrop
-    }
-
-    public enum Situation
-    {
-        Move,
-        Copy,
-        Change,
     }
 }

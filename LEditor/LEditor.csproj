@@ -131,6 +131,7 @@
     <Compile Include="Utils\DropManager.cs" />
     <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="Utils\Singleton.cs" />
+    <Compile Include="Utils\UtilManager.cs" />
     <Compile Include="ViewModels\TeamSettingViewModel.cs" />
     <Compile Include="ViewModels\RandomTeamViewModel.cs" />
     <Compile Include="ViewModels\WaitPlayerViewModel.cs" />
@@ -254,6 +255,12 @@
     <Resource Include="Images\Random.png" />
     <Resource Include="Images\Support.png" />
     <Resource Include="Images\Top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBManager\DBManager.csproj">
+      <Project>{78c9ad03-053a-4f93-9bdc-ceaa617a7ecf}</Project>
+      <Name>DBManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -84,45 +84,18 @@ namespace LEditor.Common.Draggables
         {
             drawingContext.DrawRectangle(this.renderBrush, new Pen(Brushes.Gray, 1), this.renderRectangle);
 
-            Uri uriSource;
-
-            switch (DragObject.Rank)
-            {
-                case Rank.Iron:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Iron.png");
-                    break;
-                case Rank.Bronze:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Bronze.png");
-                    break;
-                case Rank.Silver:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Silver.png");
-                    break;
-                case Rank.Gold:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Gold.png");
-                    break;
-                case Rank.Pletinum:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Pletinum.png");
-                    break;
-                case Rank.Diamond:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/Diamond.png");
-                    break;
-                default:
-                    uriSource = new Uri("pack://application:,,,/LEditor;component/Images/User-icon.png");
-                    break;
-            }
-
-            ImageSource imageSource = new BitmapImage(uriSource);
+            ImageSource imageSource = new BitmapImage(DragObject.ImageUri);
             Rect imageRect = new Rect(new Point(0, 0), new Point(renderRectangle.Height, renderRectangle.Height));
 
             drawingContext.DrawImage(imageSource, imageRect);
 
-            string ToolTipMessage = $"{DragObject.Name} \nMMR : {DragObject.MMR}";
+            string ToolTipMessage = $"{DragObject.Name}\nRank : {DragObject.Rank} \nMMR : {DragObject.MMR}";
             FormattedText formattedText = new FormattedText(
                                             ToolTipMessage,
                                             CultureInfo.CurrentUICulture,
                                             FlowDirection.LeftToRight,
                                             new Typeface("Verdana"),
-                                            this.renderRectangle.Height / 3,
+                                            this.renderRectangle.Height / 4,
                                             Brushes.Black);
             drawingContext.DrawText(formattedText, new Point(imageRect.Width + 10, 5));
 
